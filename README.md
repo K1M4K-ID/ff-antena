@@ -15,3 +15,4 @@ sh antena
 3. install paket              0. exit
 
 Youtube : https://www.youtube.com/channel/UCsevJlIs2MYo_-rJuDtFqUw?view_as=subscriber
+
