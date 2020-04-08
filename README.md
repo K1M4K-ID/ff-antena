@@ -8,7 +8,7 @@ Cara Pakai
 apt update && apt upgrade -y
 apt install git -y
 git clone https://github.com/K1M4K-ID/ff-antena.git
-cd antena
+cd ff-antena
 sh antena
 
 1. untuk mengaktifkan antena  2. untuk menonaktifkan antena
