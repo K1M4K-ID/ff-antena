@@ -1,0 +1,31 @@
+Naked==0.1.31
+PyYAML==5.4.1
+beautifulsoup4==4.9.1
+certifi==2020.6.20
+cffi==1.14.4
+chardet==3.0.4
+crypto==1.4.1
+cryptography==3.3.1
+idna==2.10
+lxml==4.6.2
+pip==21.0
+yagmail	
+pycparser==2.20
+pycryptodome==3.9.9
+pyperclip==1.8.1
+requests==2.24.0
+setuptools~=49.2.0
+shellescape==3.8.1
+six==1.15.0
+soupsieve==2.0.1
+urllib3==1.25.9
+adbutils~=0.8.1
+pyfiglet~=0.8.post1
+rich~=4.2.0
+colorama~=0.4.3
+requests-toolbelt==0.9.1
+geopy>=2.0.0
+prettytable==0.7.2
+instagram-private-api==1.6.0
+gnureadline>=8.0.0; platform_system != "Windows"
+pyreadline==2.1; platform_system == "Windows"
