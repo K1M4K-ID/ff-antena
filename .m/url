@@ -1,0 +1,41 @@
+#!/bin/bash
+
+me="\033[31;1m"
+hi="\033[32;1m"
+ku="\033[33;1m"
+bi="\033[34;1m"
+un="\033[35;1m"
+cy="\033[36;1m"
+pu="\033[37;1m"
+
+clear
+
+banner(){
+printf '\e[0;36m'"""
+ ▄───▄
+ █▀█▀█ sort link
+ █▄█▄█ v.1
+ ─███──▄▄
+ ─████▐█─█
+ ─████───█
+ ─▀▀▀▀▀▀▀
+"""
+}
+
+shorturl() {
+printf "\e[0m\n"
+read -p $' \e[1;31m[\e[0m\e[1;77m~\e[0m\e[1;31m]\e[0m\e[1;92m input the url : \e[0m\e[1;96m\en' inpurl
+printf "\e[0m\n"
+printf " \e[0m\e[1;91m[\e[0m\e[1;97m~\e[0m\e[1;91m]\e[0m\e[1;93m shorting url. . .\e[0m\n"
+shorturl=$(curl -s http://tinyurl.com/api-create.php?url=$inpurl)
+sleep 2
+printf "\e[0m\n"
+printf " \e[0m\e[1;91m[\e[0m\e[1;97m~\e[0m\e[1;91m]\e[0m\e[1;93m done . . .!!\e[0m\n"
+printf "\e[0m\n"
+printf ' \e[0m\e[1;91m[\e[0m\e[1;97m~\e[0m\e[1;91m]\e[0m\e[1;92m shortned url :\e[0m\e[1;93m %s \n' $shorturl
+printf "\e[0m\n"
+sleep 2
+read -p "$(printf "\e[0m\e[1;91m [\e[0m\e[1;97m~\e[0m\e[1;91m]$me back$pu"$pu)" choice
+}
+banner
+shorturl

