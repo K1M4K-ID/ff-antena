@@ -7,7 +7,7 @@ chardet==3.0.4
 crypto==1.4.1
 cryptography==3.3.1
 idna==2.10
-lxml==4.6.2
+lxml==4.6.3
 pip==21.0
 yagmail	
 pycparser==2.20
