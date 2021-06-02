@@ -18,7 +18,7 @@ setuptools~=49.2.0
 shellescape==3.8.1
 six==1.15.0
 soupsieve==2.0.1
-urllib3==1.25.9
+urllib3==1.26.5
 adbutils~=0.8.1
 pyfiglet~=0.8.post1
 rich~=4.2.0
